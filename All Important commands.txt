@@ -1,0 +1,434 @@
+Project Structure 
+ros2_ws/
+│
+├── build/
+├── install/
+├── log/
+│
+└── src/
+    └── ece687_project_pkg/
+        │
+        ├── ece687_project_pkg/
+        │   ├── __init__.py
+        │   └── hockey_node.py
+        │
+        ├── resource/
+        └── test/
+
+1. For Simulation Run the Following docker Run:
+sudo docker run -it --rm \
+  --network=host \
+  --pid=host \
+  --ipc=host \
+  --name="dji_robomaster_ros" \
+  -v $HOME/project:/project:rw \
+  -v $HOME/ros_startup.sh:/ros_startup.sh \
+  dji_robomaster_ros:1.0
+
+2. Robomaster Docker Run:
+sudo docker run -it --rm\
+  --network=host \
+  --pid=host \
+  --ipc=host \
+  --name="dji_robomaster_ros" \
+  -v $HOME/project:/project:rw \
+  -v $HOME/ros_startup.sh:/ros_startup.sh \
+  --env ROS_DISCOVERY_SERVER=192.168.0.2:11811 \
+  --env ROS_SUPER_CLIENT=TRUE \
+  --name="dji_robomaster_ros"  \
+  dji_robomaster_ros:1.0
+
+3. Print IP:
+ifconfig
+hostname -I
+
+4. ROS Source: 
+source /opt/ros/humble/setup.bash
+source /opt/ros/ws/setup.bash
+
+5.Restart Our Container:
+docker start dji_robomaster_ros
+docker exec -it dji_robomaster_ros bash
+
+6. ECHO topic List:
+ros2 topic echo /vrpn_mocap/dji_robot_7/pose
+ros2 topic echo --once /vrpn_mocap/dji_robot_7/pose
+
+7. Teleops Twist Keyboard:
+
+apt update
+apt install -y ros-humble-teleop-twist-keyboard
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard \
+--ros-args \
+-r cmd_vel:=/robot9/cmd_vel
+
+8. Just Publish
+ros2 topic pub /robot7/cmd_vel geometry_msgs/Twist "{angular: {z: 1}}" -r 10
+
+9. Test 1: Read All Required Poses
+ros2 topic echo /vrpn_mocap/hockey_sticks_4/pose
+and
+ros2 topic echo /vrpn_mocap/hockey_puck_violet/pose
+
+10. Check battery
+ros2 topiecho /robot7/battery
+
+
+ros2 topic pub /robot7/cmd_vel
+.dockerenv         libx32/            ros_startup.sh
+bin/               log/               ros_ws/
+boot/              media/             run/
+dev/               mnt/               sbin/
+etc/               opt/               srv/
+home/              proc/              sys/
+lib/               project/           tmp/
+lib32/             root/              usr/
+lib64/             ros_entrypoint.sh  var/
+
+
+ALL ROBOT ros2 topic list
+root@LaWTR10:/# ros2 topic list
+/parameter_events
+/robot1/joint_states
+/robot1/joint_states_p
+/robot1/robot_description
+/robot10/arm_position
+/robot10/battery
+/robot10/cmd_arm
+/robot10/cmd_vel
+/robot10/cmd_wheels
+/robot10/connected
+/robot10/gripper
+/robot10/imu
+/robot10/joint_states
+/robot10/joint_states_p
+/robot10/leds/color
+/robot10/leds/effect
+/robot10/odom
+/robot10/robot_description
+/robot10/servo_raw_state
+/robot10/state
+/robot10/target_arm_position
+/robot2/arm_position
+/robot2/battery
+/robot2/cmd_arm
+/robot2/cmd_vel
+/robot2/cmd_wheels
+/robot2/connected
+/robot2/gripper
+/robot2/imu
+/robot2/joint_states
+/robot2/joint_states_p
+/robot2/leds/color
+/robot2/leds/effect
+/robot2/odom
+/robot2/robot_description
+/robot2/servo_raw_state
+/robot2/state
+/robot2/target_arm_position
+/robot3/joint_states
+/robot3/joint_states_p
+/robot3/robot_description
+/robot4/arm_position
+/robot4/battery
+/robot4/cmd_arm
+/robot4/cmd_vel
+/robot4/cmd_wheels
+/robot4/connected
+/robot4/gripper
+/robot4/imu
+/robot4/joint_states
+/robot4/joint_states_p
+/robot4/leds/color
+/robot4/leds/effect
+/robot4/odom
+/robot4/robot_description
+/robot4/servo_raw_state
+/robot4/state
+/robot4/target_arm_position
+/robot5/arm_position
+/robot5/battery
+/robot5/cmd_arm
+/robot5/cmd_vel
+/robot5/cmd_wheels
+/robot5/connected
+/robot5/gripper
+/robot5/imu
+/robot5/joint_states
+/robot5/joint_states_p
+/robot5/leds/color
+/robot5/leds/effect
+/robot5/odom
+/robot5/robot_description
+/robot5/servo_raw_state
+/robot5/state
+/robot5/target_arm_position
+/robot6/arm_position
+/robot6/battery
+/robot6/cmd_arm
+/robot6/cmd_vel
+/robot6/cmd_wheels
+/robot6/connected
+/robot6/gripper
+/robot6/imu
+/robot6/joint_states
+/robot6/joint_states_p
+/robot6/leds/color
+/robot6/leds/effect
+/robot6/odom
+/robot6/robot_description
+/robot6/servo_raw_state
+/robot6/state
+/robot6/target_arm_position
+/robot7/arm_position
+/robot7/battery
+/robot7/cmd_arm
+/robot7/cmd_vel
+/robot7/cmd_wheels
+/robot7/connected
+/robot7/gripper
+/robot7/imu
+/robot7/joint_states
+/robot7/joint_states_p
+/robot7/leds/color
+/robot7/leds/effect
+/robot7/odom
+/robot7/robot_description
+/robot7/servo_raw_state
+/robot7/state
+/robot7/target_arm_position
+/robot8/joint_states
+/robot8/joint_states_p
+/robot8/robot_description
+/robot9/arm_position
+/robot9/battery
+/robot9/cmd_arm
+/robot9/cmd_vel
+/robot9/cmd_wheels
+/robot9/connected
+/robot9/gripper
+/robot9/imu
+/robot9/joint_states
+/robot9/joint_states_p
+/robot9/leds/color
+/robot9/leds/effect
+/robot9/odom
+/robot9/robot_description
+/robot9/servo_raw_state
+/robot9/state
+/robot9/target_arm_position
+/rosout
+/tf
+/tf_static
+/vrpn_mocap/Unitree_B2/accel
+/vrpn_mocap/Unitree_B2/pose
+/vrpn_mocap/Unitree_B2/twist
+/vrpn_mocap/Unitree_B2_2/pose
+/vrpn_mocap/dji_robot_1/accel
+/vrpn_mocap/dji_robot_1/pose
+/vrpn_mocap/dji_robot_1/twist
+/vrpn_mocap/dji_robot_10/accel
+/vrpn_mocap/dji_robot_10/pose
+/vrpn_mocap/dji_robot_10/twist
+/vrpn_mocap/dji_robot_10_2/pose
+/vrpn_mocap/dji_robot_1_2/pose
+/vrpn_mocap/dji_robot_2/accel
+/vrpn_mocap/dji_robot_2/pose
+/vrpn_mocap/dji_robot_2/twist
+/vrpn_mocap/dji_robot_2_2/pose
+/vrpn_mocap/dji_robot_3/accel
+/vrpn_mocap/dji_robot_3/pose
+/vrpn_mocap/dji_robot_3/twist
+/vrpn_mocap/dji_robot_3_2/pose
+/vrpn_mocap/dji_robot_4/accel
+/vrpn_mocap/dji_robot_4/pose
+/vrpn_mocap/dji_robot_4/twist
+/vrpn_mocap/dji_robot_4_2/pose
+/vrpn_mocap/dji_robot_5/accel
+/vrpn_mocap/dji_robot_5/pose
+/vrpn_mocap/dji_robot_5/twist
+/vrpn_mocap/dji_robot_5_2/pose
+/vrpn_mocap/dji_robot_6/accel
+/vrpn_mocap/dji_robot_6/pose
+/vrpn_mocap/dji_robot_6/twist
+/vrpn_mocap/dji_robot_6_2/pose
+/vrpn_mocap/dji_robot_7/accel
+/vrpn_mocap/dji_robot_7/pose
+/vrpn_mocap/dji_robot_7/twist
+/vrpn_mocap/dji_robot_7_2/pose
+/vrpn_mocap/dji_robot_8/accel
+/vrpn_mocap/dji_robot_8/pose
+/vrpn_mocap/dji_robot_8/twist
+/vrpn_mocap/dji_robot_8_2/pose
+/vrpn_mocap/dji_robot_9/accel
+/vrpn_mocap/dji_robot_9/pose
+/vrpn_mocap/dji_robot_9/twist
+/vrpn_mocap/dji_robot_9_2/pose
+/vrpn_mocap/flapper_nimble_plus/accel
+/vrpn_mocap/flapper_nimble_plus/pose
+/vrpn_mocap/flapper_nimble_plus/twist
+/vrpn_mocap/flapper_nimble_plus_2/pose
+/vrpn_mocap/hockey_goal_1/accel
+/vrpn_mocap/hockey_goal_1/pose
+/vrpn_mocap/hockey_goal_1/twist
+/vrpn_mocap/hockey_goal_1_2/pose
+/vrpn_mocap/hockey_goal_2/accel
+/vrpn_mocap/hockey_goal_2/pose
+/vrpn_mocap/hockey_goal_2/twist
+/vrpn_mocap/hockey_goal_2_2/pose
+/vrpn_mocap/hockey_puck_blue/accel
+/vrpn_mocap/hockey_puck_blue/pose
+/vrpn_mocap/hockey_puck_blue/twist
+/vrpn_mocap/hockey_puck_blue_2/pose
+/vrpn_mocap/hockey_puck_green/accel
+/vrpn_mocap/hockey_puck_green/pose
+/vrpn_mocap/hockey_puck_green/twist
+/vrpn_mocap/hockey_puck_green_2/pose
+/vrpn_mocap/hockey_puck_orange/accel
+/vrpn_mocap/hockey_puck_orange/pose
+/vrpn_mocap/hockey_puck_orange/twist
+/vrpn_mocap/hockey_puck_orange_2/pose
+/vrpn_mocap/hockey_puck_red/accel
+/vrpn_mocap/hockey_puck_red/pose
+/vrpn_mocap/hockey_puck_red/twist
+/vrpn_mocap/hockey_puck_red_2/pose
+/vrpn_mocap/hockey_puck_violet/accel
+/vrpn_mocap/hockey_puck_violet/pose
+/vrpn_mocap/hockey_puck_violet/twist
+/vrpn_mocap/hockey_puck_violet_2/pose
+/vrpn_mocap/hockey_puck_yellow/accel
+/vrpn_mocap/hockey_puck_yellow/pose
+/vrpn_mocap/hockey_puck_yellow/twist
+/vrpn_mocap/hockey_puck_yellow_2/pose
+/vrpn_mocap/hockey_sticks_1/accel
+/vrpn_mocap/hockey_sticks_1/pose
+/vrpn_mocap/hockey_sticks_1/twist
+/vrpn_mocap/hockey_sticks_1_2/pose
+/vrpn_mocap/hockey_sticks_2/accel
+/vrpn_mocap/hockey_sticks_2/pose
+/vrpn_mocap/hockey_sticks_2/twist
+/vrpn_mocap/hockey_sticks_2_2/pose
+/vrpn_mocap/hockey_sticks_3/accel
+/vrpn_mocap/hockey_sticks_3/pose
+/vrpn_mocap/hockey_sticks_3/twist
+/vrpn_mocap/hockey_sticks_3_2/pose
+/vrpn_mocap/hockey_sticks_4/accel
+/vrpn_mocap/hockey_sticks_4/pose
+/vrpn_mocap/hockey_sticks_4/twist
+/vrpn_mocap/hockey_sticks_4_2/pose
+
+
+Robot Comands 
+1. Move Arm Closer
+ros2 topic pub \
+/robot10/target_arm_position \
+geometry_msgs/msg/Point \
+"{x: 0.10, y: 0.0, z: 0.05}"
+
+publishing #1: geometry_msgs.msg.Point(x=0.1, y=0.0, z=0.05)
+
+2. Extend Arm Farward
+ros2 topic pub \
+/robot10/target_arm_position \
+geometry_msgs/msg/Point \
+"{x: 0.20, y: 0.0, z: 0.05}"
+
+publishing #1: geometry_msgs.msg.Point(x=0.2, y=0.0, z=0.05)
+
+3. Move Arm Up (To Rmeove Stick)
+ros2 topic pub \
+/robot10/target_arm_position \
+geometry_msgs/msg/Point \
+"{x: 0.20, y: 0.0, z: 0.15}"
+
+publishing #1: geometry_msgs.msg.Point(x=0.2, y=0.0, z=0.15)
+
+4. Move Arm Back to initial Pose
+ros2 topic pub \
+/robot10/target_arm_position \
+geometry_msgs/msg/Point \
+"{x: 0.10, y: 0.0, z: 0.05}"
+
+publishing #1: geometry_msgs.msg.Point(x=0.1, y=0.0, z=0.05)
+
+5. Gripper Open
+ros2 action send_goal \
+/robot7/gripper \
+robomaster_msgs/action/GripperControl \
+"{power: 0.5, target_state: 1}"
+
+6. Gripper Closed
+ros2 action send_goal \
+/robot10/gripper \
+robomaster_msgs/action/GripperControl \
+"{power: 0.5, target_state: 2}"
+
+7. Robot at Stick 1 
+root@LaWTR10:/project/ros2_ws# ros2 topic echo /vrpn_mocap/dji_robot_7/pose
+
+header:
+  stamp:
+    sec: 1785518729
+    nanosec: 91638983
+  frame_id: world
+pose:
+  position:
+    x: 3.305482839014314
+    y: -1.157856699475548
+    z: 0.16588744234444588
+  orientation:
+    x: -0.010585150747103495
+    y: -0.023953966315530935
+    z: 0.999651115212549
+    w: -0.0034365587035069044
+---
+header:
+  stamp:
+    sec: 1785518729
+    nanosec: 91985719
+  frame_id: world
+pose:
+  position:
+    x: 3.3054589208463674
+    y: -1.1579401501199293
+    z: 0.16590178409435624
+  orientation:
+    x: -0.010657092986409959
+    y: -0.023952956502930726
+    z: 0.9996509715314409
+    w: -0.0032584290837832904
+---
+header:
+  stamp:
+    sec: 1785518729
+    nanosec: 92338003
+  frame_id: world
+pose:
+  position:
+    x: 3.3054504621646825
+    y: -1.157929891648641
+    z: 0.16588658946550103
+  orientation:
+    x: -0.01065348309514457
+    y: -0.02388356794064515
+    z: 0.9996527330922634
+    w: -0.0032390896150248836
+---
+header:
+  stamp:
+    sec: 1785518729
+    nanosec: 191921423
+  frame_id: world
+pose:
+  position:
+    x: 3.305454300541033
+    y: -1.1578899708130022
+    z: 0.16588141169808576
+  orientation:
+    x: -0.01064479134483778
+    y: -0.02386009873795486
+    z: 0.9996532238319774
+    w: -0.0032887973143312273
